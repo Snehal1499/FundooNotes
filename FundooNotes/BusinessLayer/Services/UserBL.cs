@@ -2,28 +2,42 @@
 using DataBaseLayer.Users;
 using RepositoryLayer.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BussinessLayer.Services
 {
     public class UserBL : IUserBL
     {
-        IUserRL userRL;
-        public UserBL(IUserRL userRL)
+        IUserRL userRl;
+        public UserBL(IUserRL userRl)
         {
-            this.userRL = userRL;
+            this.userRl = userRl;
         }
+
         public void AddUser(UserPostModel userPostModel)
         {
             try
             {
-                this.userRL.AddUser(userPostModel);
+                this.userRl.AddUser(userPostModel);
             }
             catch (Exception)
             {
+
+                throw;
+            }
+        }
+
+        public string LoginUser(string Email, string Password)
+        {
+            try
+            {
+                return this.userRl.LoginUser(Email, Password);
+            }
+            catch (Exception)
+            {
+
                 throw;
             }
         }
     }
+
 }

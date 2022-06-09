@@ -10,11 +10,12 @@ namespace FundooNotes.Controllers
     [Route("[controller]")]
     public class UserController : ControllerBase
     {
-        FundooContext fundooContext;
+        FundooContext fundoContext;
         IUserBL userBL;
-        public UserController(FundooContext fundooContext, IUserBL userBL)
+
+        public UserController(FundooContext fundoContext, IUserBL userBL)
         {
-            this.fundooContext = fundooContext;
+            this.fundoContext = fundoContext;
             this.userBL = userBL;
         }
         [HttpPost("Register")]
@@ -23,12 +24,29 @@ namespace FundooNotes.Controllers
             try
             {
                 this.userBL.AddUser(user);
-                return this.Ok(new { success = true, message = "Registration Successful" });
+                return this.Ok(new { success = true, message = "Registration Sucessfull" });
+
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+        }
+        [HttpPost("Login/{Email}/{Password}")]
+        public ActionResult LoginUser(string Email, string Password)
+        {
+            try
+            {
+                string token = this.userBL.LoginUser(Email, Password);
+                return this.Ok(new { success = true, message = "Login Sucessfull", token = token });
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
         }
     }
 }
