@@ -5,12 +5,16 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BussinessLayer.Interfaces
+namespace BussinessLayer.Interface
 {
     public interface INoteBL
     {
         Task AddNote(int UserId, NotePostModel notePostModel);
-        Task ChangeColour(int UserId, int NoteId, string Colour);
+
+        Task ChangeColour(int UserId, int NoteId, string Color);
+
         Task UpdateNote(int UserId, int NoteId, UpdateModel updateModel);
+
+        Task<Note> GetNote(int UserId, int NoteId);
     }
 }

@@ -91,5 +91,17 @@ namespace RepositoryLayer.Services
             }
 
         }
+        public async Task<Note> GetNote(int UserId, int NoteId)
+        {
+            try
+            {
+                return await fundoocontext.Note.FirstOrDefaultAsync(x => x.UserId == UserId && x.NoteId == NoteId);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

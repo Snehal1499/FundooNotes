@@ -1,4 +1,4 @@
-﻿using BussinessLayer.Interfaces;
+﻿using BussinessLayer.Interface;
 using DataBaseLayer.Notes;
 using RepositoryLayer.Entities;
 using RepositoryLayer.Interfaces;
@@ -41,6 +41,7 @@ namespace BussinessLayer.Services
                 throw;
             }
         }
+
         public async Task UpdateNote(int UserId, int NoteId, UpdateModel updateModel)
         {
             try
@@ -52,8 +53,19 @@ namespace BussinessLayer.Services
 
                 throw;
             }
-
-
         }
+        public Task<Note> GetNote(int UserId, int NoteId)
+        {
+            try
+            {
+                return this.noteRL.GetNote(UserId, NoteId);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
     }
 }
