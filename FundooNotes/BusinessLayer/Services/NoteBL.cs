@@ -1,4 +1,5 @@
 ﻿using BussinessLayer.Interface;
+using BussinessLayer.Interfaces;
 using DataBaseLayer.Notes;
 using RepositoryLayer.Entities;
 using RepositoryLayer.Interfaces;
@@ -71,5 +72,9 @@ namespace BussinessLayer.Services
             await noteRL.PinNote(NoteId, UserId);
         }
 
+        public async Task ArchiveNote(int UserId, int NoteId)
+        {
+            await noteRL.ArchiveNote(NoteId, UserId);
+        }
     }
 }
