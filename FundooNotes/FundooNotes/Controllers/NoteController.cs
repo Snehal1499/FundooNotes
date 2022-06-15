@@ -65,5 +65,28 @@ namespace FundooNotes.Controllers
             }
 
         }
+        [Authorize]
+        [HttpPut("UpdateNote/{NoteId}")]
+        public async Task<ActionResult> UpdateNote(int NoteId, UpdateModel updateModel)
+        {
+            try
+            {
+                var userid = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("userID", StringComparison.InvariantCultureIgnoreCase));
+                int userId = Int32.Parse(userid.Value);
+                var note = fundooContext.Note.FirstOrDefault(e => e.UserId == userId && e.NoteId == NoteId);
+                if (note == null)
+                {
+                    return this.BadRequest(new { success = false, message = "Note Does not Exist " });
+                }
+                await this.noteBL.UpdateNote(NoteId, userId, updateModel);
+                return this.Ok(new { success = true, message = "Update Successfully" });
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
