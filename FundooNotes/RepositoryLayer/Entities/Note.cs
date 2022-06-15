@@ -22,6 +22,6 @@ namespace RepositoryLayer.Entities
         public DateTime CreatedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
         public int UserId { get; set; }
-        public virtual User user { get; set; }
+        
     }
 }

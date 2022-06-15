@@ -1,9 +1,11 @@
 ﻿using DataBaseLayer.Notes;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using RepositoryLayer.Entities;
 using RepositoryLayer.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -36,6 +38,25 @@ namespace RepositoryLayer.Services
                 await fundoocontext.SaveChangesAsync();
 
 
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        public async Task ChangeColour(int UserId, int NoteId, string Colour)
+        {
+            try
+            {
+                var note = fundoocontext.Note.FirstOrDefault(u => u.UserId == UserId && u.NoteId == NoteId);
+                if (note != null)
+                {
+                    note.Colour = Colour;
+                    await fundoocontext.SaveChangesAsync();
+
+                }
             }
             catch (Exception)
             {

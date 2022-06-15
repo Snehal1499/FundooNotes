@@ -1,5 +1,6 @@
 ﻿using BussinessLayer.Interfaces;
 using DataBaseLayer.Notes;
+using RepositoryLayer.Entities;
 using RepositoryLayer.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -27,5 +28,20 @@ namespace BussinessLayer.Services
                 throw;
             }
         }
+
+        public async Task ChangeColour(int UserId, int NoteId, string Colour)
+        {
+            try
+            {
+                await noteRL.ChangeColour(NoteId, UserId, Colour);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+
     }
 }

@@ -3,14 +3,16 @@ using DataBaseLayer.Notes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RepositoryLayer.Entities;
 using RepositoryLayer.Services;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace FundooNotes.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class NoteController : ControllerBase
     {
@@ -38,6 +40,30 @@ namespace FundooNotes.Controllers
 
                 throw ex;
             }
+        }
+        [Authorize]
+        [HttpPut("ChangeColour/{NoteId}/{Colour}")]
+        public async Task<ActionResult> ChangeColour(int NoteId, string Colour)
+        {
+            try
+            {
+                var userid = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("userID", StringComparison.InvariantCultureIgnoreCase));
+                int UserId = Int32.Parse(userid.Value);
+                var note = fundooContext.Note.FirstOrDefault(e => e.UserId == UserId && e.NoteId == NoteId);
+                if (note == null)
+                {
+                    return this.BadRequest(new { success = false, message = "Note Does not Exist " });
+                }
+                await this.noteBL.ChangeColour(NoteId, UserId, Colour);
+                return this.Ok(new { success = true, message = "Changed Colour Successfully" });
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
     }
 }

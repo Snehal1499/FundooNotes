@@ -71,11 +71,12 @@ namespace FundooNotes.Controllers
         [Authorize]
         [HttpPost("ResetPassword")]
         public ActionResult ResetPassword(PasswordModel passwordModel)
+
         {
             try
             {
                 var currentUser = HttpContext.User;
-                int userId = Convert.ToInt32(currentUser.Claims.FirstOrDefault(c => c.Type == "UserId").Value);
+                int userId = Convert.ToInt32(currentUser.Claims.FirstOrDefault(c => c.Type == "userId").Value);
                 var Email = (currentUser.Claims.FirstOrDefault(c => c.Type == "Email").Value);
                 if (passwordModel.NewPassword != passwordModel.ConfirmPassword)
                 {
