@@ -103,5 +103,33 @@ namespace RepositoryLayer.Services
                 throw;
             }
         }
+        public async Task PinNote(int UserId, int NoteId)
+        {
+            try
+            {
+                var note = fundoocontext.Note.FirstOrDefault(u => u.UserId == UserId && u.NoteId == NoteId);
+                if (note != null)
+                {
+                    if (note.IsTrash == false)
+                    {
+                        if (note.Ispin == true)
+                        {
+                            note.Ispin = false;
+
+                        }
+                        if (note.Ispin == false)
+                        {
+                            note.Ispin = true;
+                        }
+                    }
+                    await fundoocontext.SaveChangesAsync();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

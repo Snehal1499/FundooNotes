@@ -1,5 +1,4 @@
 ﻿using BussinessLayer.Interface;
-using BussinessLayer.Interfaces;
 using DataBaseLayer.Notes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -105,6 +104,31 @@ namespace FundooNotes.Controllers
                 throw;
             }
         }
+        [Authorize]
+        [HttpPut("PinNote/{NoteId}")]
+        public async Task<ActionResult> PinNote(int NoteId)
+        {
+            try
+            {
+                var userid = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("userID", StringComparison.InvariantCultureIgnoreCase));
+                int UserId = Int32.Parse(userid.Value);
+                var note = fundooContext.Note.FirstOrDefault(e => e.UserId == UserId && e.NoteId == NoteId);
+                if (note == null)
+                {
+                    return this.BadRequest(new { success = false, message = "Note Does not Exist " });
+                }
+                await this.noteBL.PinNote(NoteId, UserId);
+                return this.Ok(new { success = true, message = "Note Pinned Successfully" });
+            }
 
+
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+        }
     }
 }
