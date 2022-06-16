@@ -208,6 +208,24 @@ namespace RepositoryLayer.Services
                 throw;
             }
         }
+        public async Task RemoveNote(int NoteId, int UserId)
+        {
+            try
+            {
+                var note = fundoocontext.Note.FirstOrDefault(u => u.NoteId == NoteId && u.UserId == UserId);
+                if (note != null)
+                {
+                    fundoocontext.Note.Remove(note);
+                    await fundoocontext.SaveChangesAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
     }
 
 }
