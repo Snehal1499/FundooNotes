@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace RepositoryLayer.Entities
 {
     [Keyless]
-    public class Lable
+    public class Label
     {
 
         [ForeignKey("User")]

@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace RepositoryLayer.Services
 {
-    public class LebleRL : ILebelRL
+    public class LebelRL : ILebelRL
     {
         FundooContext fundooContext;
         IConfiguration configuration;
-        public LebleRL(FundooContext fundooContext, IConfiguration configuration)
+        public LebelRL(FundooContext fundooContext, IConfiguration configuration)
         {
             this.fundooContext = fundooContext;
             this.configuration = configuration;
@@ -22,7 +22,7 @@ namespace RepositoryLayer.Services
         {
             try
             {
-                Lable label = new Lable
+                Label label = new Label
                 {
                     UserId = UserId,
                     NoteId = NoteId
@@ -34,6 +34,23 @@ namespace RepositoryLayer.Services
             catch (Exception e)
             {
                 Console.WriteLine(e.InnerException.Message);
+            }
+        }
+        public async Task DeleteLabel(int UserId, int NoteId)
+        {
+            try
+            {
+                Label label = new Label
+                {
+                    UserId = UserId,
+                    NoteId = NoteId
+                };
+                fundooContext.Label.Remove(label);
+                await fundooContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
     }
