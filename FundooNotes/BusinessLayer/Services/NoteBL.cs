@@ -132,5 +132,17 @@ namespace BussinessLayer.Services
             }
 
         }
+        public async Task<List<Note>> GetallNotes(int UserId)
+        {
+            try
+            {
+                return await this.noteRL.GetallNotes(UserId);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
