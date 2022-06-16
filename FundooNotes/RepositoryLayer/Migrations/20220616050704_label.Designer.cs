@@ -3,37 +3,23 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RepositoryLayer.Services;
 
 namespace RepositoryLayer.Migrations
 {
     [DbContext(typeof(FundooContext))]
-    partial class FundooContextModelSnapshot : ModelSnapshot
+    [Migration("20220616050704_label")]
+    partial class label
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("RepositoryLayer.Entities.Label", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NoteId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("LabelName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("UserId", "NoteId");
-
-                    b.ToTable("Label");
-                });
 
             modelBuilder.Entity("RepositoryLayer.Entities.Note", b =>
                 {

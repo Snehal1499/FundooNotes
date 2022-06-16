@@ -106,5 +106,18 @@ namespace BussinessLayer.Services
             }
 
         }
+        public async Task Reminder(int UserId, int NoteId, DateTimeModel dateTimeModel)
+        {
+            try
+            {
+                await noteRL.Reminder(NoteId, UserId, dateTimeModel);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
     }
 }

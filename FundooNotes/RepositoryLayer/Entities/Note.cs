@@ -8,6 +8,9 @@ namespace RepositoryLayer.Entities
 {
     public class Note
     {
+        internal bool IsReminder;
+        internal DateTime Reminder;
+
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int NoteId { get; set; }
@@ -21,7 +24,7 @@ namespace RepositoryLayer.Entities
         public DateTime Remainder { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
+        [ForeignKey("User")]
         public int UserId { get; set; }
-        
     }
 }

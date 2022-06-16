@@ -31,7 +31,7 @@ namespace RepositoryLayer.Services
                 note.Colour = notePostModel.Colour;
                 note.Ispin = false;
                 note.IsArchieve = false;
-                note.IsRemainder = false;
+                note.IsReminder = false;
                 note.CreatedDate = DateTime.Now;
                 note.ModifiedDate = DateTime.Now;
                 fundoocontext.Add(note);
@@ -112,14 +112,14 @@ namespace RepositoryLayer.Services
                 {
                     if (note.IsTrash == false)
                     {
-                        if (note.Ispin == true)
-                        {
-                            note.Ispin = false;
-
-                        }
                         if (note.Ispin == false)
                         {
                             note.Ispin = true;
+
+                        }
+                        else
+                        {
+                            note.Ispin = false;
                         }
                     }
                     await fundoocontext.SaveChangesAsync();
@@ -131,6 +131,7 @@ namespace RepositoryLayer.Services
                 throw;
             }
         }
+
         public async Task ArchiveNote(int UserId, int NoteId)
         {
             try
@@ -140,14 +141,14 @@ namespace RepositoryLayer.Services
                 {
                     if (note.IsTrash == false)
                     {
-                        if (note.IsArchieve == true)
-                        {
-                            note.IsArchieve = false;
-
-                        }
                         if (note.IsArchieve == false)
                         {
                             note.IsArchieve = true;
+
+                        }
+                        else
+                        {
+                            note.IsArchieve = false;
                         }
                     }
                     await fundoocontext.SaveChangesAsync();
@@ -184,5 +185,29 @@ namespace RepositoryLayer.Services
                 throw;
             }
         }
+        public async Task Reminder(int UserId, int NoteId, DateTimeModel dateTimeModel)
+        {
+            try
+            {
+                var note = fundoocontext.Note.FirstOrDefault(u => u.NoteId == NoteId && u.UserId == UserId);
+                if (note != null)
+                {
+                    if (note.IsTrash == false)
+                    {
+                        note.IsReminder = true;
+                        note.Reminder = dateTimeModel.Reminder;
+
+                    }
+                    await fundoocontext.SaveChangesAsync();
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
+
 }

@@ -180,5 +180,26 @@ namespace FundooNotes.Controllers
                 throw;
             }
         }
+        [Authorize]
+        [HttpPut("RemainderNote/{NoteId}")]
+        public async Task<ActionResult> Remainder(int NoteId, DateTimeModel dateTimeModel)
+        {
+            try
+            {
+                var userid = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("userId", StringComparison.InvariantCultureIgnoreCase));
+                int userId = Int32.Parse(userid.Value);
+                var note = fundooContext.Note.FirstOrDefault(u => u.NoteId == NoteId && u.UserId == userId);
+                if (note == null)
+                {
+                    return this.BadRequest(new { success = false, message = "Note does not exist." });
+                }
+                await this.noteBL.Reminder(userId, NoteId, dateTimeModel);
+                return this.Ok(new { success = true, message = $"Remainder set succsefully." });
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

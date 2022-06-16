@@ -19,5 +19,6 @@ namespace BussinessLayer.Interface
         Task PinNote(int UserId, int NoteId);
         Task ArchiveNote(int UserId, int NoteId);
         Task TrashNote(int UserId, int NoteId);
+        Task Reminder(int UserId, int NoteId, DateTimeModel dateTimeModel);
     }
 }
