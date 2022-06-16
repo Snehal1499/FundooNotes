@@ -68,12 +68,6 @@ namespace RepositoryLayer.Services
                 throw;
             }
         }
-
-        public Task<Label> GetLabel(int UserId, int NoteId)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task UpdateLabel(int UserId, int NoteId, string LebelName)
         {
             try
@@ -93,6 +87,18 @@ namespace RepositoryLayer.Services
             catch (Exception e)
             {
                 throw e;
+            }
+        }
+        public async Task<Label> GetLabel(int UserId, int NoteId)
+        {
+            try
+            {
+                return await fundooContext.Label.Where(u => u.UserId == UserId && u.NoteId == NoteId).FirstOrDefaultAsync();
+
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
     }

@@ -113,5 +113,19 @@ namespace FundooNotes.Controllers
                 throw ex;
             }
         }
+        [Authorize]
+        [HttpGet("GetLabel/{NoteId}")]
+        public async Task<ActionResult> GetLabel(int NoteId)
+        {
+            var userid = User.Claims.FirstOrDefault(x => x.Type.ToString().Equals("userId", StringComparison.InvariantCultureIgnoreCase));
+            int userId = Int32.Parse(userid.Value);
+            var label = fundooContext.Label.FirstOrDefault(u => u.NoteId == NoteId && u.UserId == userId);
+            if (label == null)
+            {
+                return this.BadRequest(new { success = false, message = $"Label Does not Found." });
+            }
+            await this.lebelBL.GetLabel(userId, NoteId);
+            return this.Ok(new { success = true, message = $"Required label is:", data = label });
+        }
     }
 }
