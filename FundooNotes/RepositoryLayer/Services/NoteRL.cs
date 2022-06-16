@@ -195,7 +195,7 @@ namespace RepositoryLayer.Services
                     if (note.IsTrash == false)
                     {
                         note.IsReminder = true;
-                        note.Reminder = dateTimeModel.Reminder;
+                        note.Reminder = dateTimeModel.Remainder;
 
                     }
                     await fundoocontext.SaveChangesAsync();
