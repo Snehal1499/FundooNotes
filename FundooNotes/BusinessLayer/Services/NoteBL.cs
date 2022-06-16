@@ -1,5 +1,4 @@
 ﻿using BussinessLayer.Interface;
-using BussinessLayer.Interfaces;
 using DataBaseLayer.Notes;
 using RepositoryLayer.Entities;
 using RepositoryLayer.Interfaces;
@@ -69,12 +68,43 @@ namespace BussinessLayer.Services
         }
         public async Task PinNote(int UserId, int NoteId)
         {
-            await noteRL.PinNote(NoteId, UserId);
+            try
+            {
+                await noteRL.PinNote(NoteId, UserId);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
 
         public async Task ArchiveNote(int UserId, int NoteId)
         {
-            await noteRL.ArchiveNote(NoteId, UserId);
+            try
+            {
+                await noteRL.ArchiveNote(NoteId, UserId);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+        public async Task TrashNote(int UserId, int NoteId)
+        {
+            try
+            {
+                await noteRL.TrashNote(UserId, NoteId);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
     }
 }

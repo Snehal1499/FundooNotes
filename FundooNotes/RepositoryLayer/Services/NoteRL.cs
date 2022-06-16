@@ -159,5 +159,30 @@ namespace RepositoryLayer.Services
                 throw;
             }
         }
+        public async Task TrashNote(int UserId, int NoteId)
+        {
+            try
+            {
+                var note = fundoocontext.Note.FirstOrDefault(u => u.UserId == UserId && u.NoteId == NoteId);
+                if (note != null)
+                {
+                    if (note.IsTrash == false)
+                    {
+                        note.IsTrash = true;
+
+                    }
+                    else
+                    {
+                        note.IsTrash = false;
+                    }
+                    await fundoocontext.SaveChangesAsync();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

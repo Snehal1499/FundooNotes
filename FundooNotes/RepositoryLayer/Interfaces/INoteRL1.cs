@@ -15,6 +15,7 @@ namespace RepositoryLayer.Interfaces
         Task<Note> GetNote(int UserId, int NoteId);
         Task PinNote(int UserId, int NoteId);
         Task ArchiveNote(int UserId, int NoteId);
+        Task TrashNote(int UserId, int NoteId);
 
     }
 }
