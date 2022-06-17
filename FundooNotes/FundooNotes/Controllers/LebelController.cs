@@ -22,7 +22,7 @@ namespace FundooNotes.Controllers
             this.lebelBL = lebelBL;
         }
         [Authorize]
-        [HttpPost("CreateLebel")]
+        [HttpPost("CreateLebel/{NoteId}/{LabelName}")]
         public async Task<ActionResult> CreateLabel(int NoteId, string LabelName)
         {
             try
@@ -51,7 +51,7 @@ namespace FundooNotes.Controllers
             }
         }
         [Authorize]
-        [HttpDelete("DeleteLabel")]
+        [HttpDelete("DeleteLabel/{NoteId}")]
         public async Task<ActionResult> RemoveCollab(int NoteId)
         {
             try
@@ -73,7 +73,7 @@ namespace FundooNotes.Controllers
             }
         }
         [Authorize]
-        [HttpPut("UpdateLabel/{NoteId}")]
+        [HttpPut("UpdateLabel/{NoteId}/{LabelName}")]
         public async Task<ActionResult> UpdateNote(int NoteId, string LabelName)
         {
             try
